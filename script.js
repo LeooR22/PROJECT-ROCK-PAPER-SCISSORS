@@ -1,7 +1,9 @@
-const playerSelection="rock";
+//¿Querés saber más? Entrá en nuestra página web o contactanos para mas info 💻📲 (SEO PARA INSTAGRAM)
 
 
-let computerSelection = function(){
+
+
+let computerplay = function(){
     let randomitem = Math.floor(Math.random()*3) + 1;
     if (randomitem == 1) {
         return  ("rock") ;
@@ -11,27 +13,25 @@ let computerSelection = function(){
    else {
     return ("siccors")
    }
+   const computerSelection = computerplay()
 }
 
 
 
-let playRound = function(playerSelection, computerSelection){
-    if (playerSelection === computerSelection){
-        return alert("Tie");
-    } else if (playerSelection==="rock" && computerSelection==="paper"){
-        return alert("Lose");
-    } else if (playerSelection==="paper" && computerSelection==="siccors"){
-        return alert("Lose");
-    } else if (playerSelection==="siccors" && computerSelection==="rock"){
-        return alert("Lose");
-        }
-
-     else if (!(playerSelection==="paper" && computerSelection==="rock")){
-            return alert("win");
-        } else if (!(playerSelection==="siccors" && computerSelection==="paper")){
-            return alert("win");
-        } else if (!(playerSelection==="rock" && computerSelection==="siccors")){
-            return alert("win");
-            }
-            
+let playRound = function(){
+    if (playerSelection == computerSelection){
+         alert("Tie");
+         computerplay()
+    } else if (((playerSelection=="rock") && (computerSelection=="paper") ) || (((playerSelection=="paper") && (computerSelection=="siccors"))) || (((playerSelection=="siccors") && (computerSelection=="rock")))){
+         alert("Lose");
+         computerplay()
     }
+
+     else if (((playerSelection=="paper") && (computerSelection=="rock")) ||  (((playerSelection=="siccors") && (computerSelection=="paper")))  || ((playerSelection=="rock") && (computerSelection=="siccors"))){
+             alert("win");  
+             computerplay()
+    }
+}
+    
+    const computerSelection = computerplay();
+    const playerSelection="rock";
