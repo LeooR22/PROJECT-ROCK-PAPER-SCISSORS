@@ -5,10 +5,24 @@
     let userScore = 0
     let computerScore = 0
 
-
-  let playRound = function(playerSelection){
-
-    
+    const WinnerOfGame = function (userScore, computerScore) {
+        if ((userScore==5) || (computerScore==5)){
+            if (userScore == computerScore){
+                disableButtons()
+              return document.getElementById("winnerofgame").innerHTML =("The result of the game was a draw. Reload the page to play again")
+            }
+            else if (userScore > computerScore){
+                disableButtons()
+                return document.getElementById("winnerofgame").innerHTML=("User wins ! Reload the page to play again")
+            }
+            else {
+                disableButtons()
+                return document.getElementById("winnerofgame").innerHTML= ("Computer wins ! Reload the page to play again")
+            }
+        }
+   
+        
+    }
 
     let computerplay = function(){
         let randomitem = Math.floor(Math.random()*3) + 1;
@@ -21,21 +35,24 @@
         return ("scissors")
        }
     }
+
+
+  let playRound = function(playerSelection){
+
+    
+
+    
     computerplay();
 
     
     const computerSelection = computerplay();
 
 
-    const content = document.createElement('li');
-    content.classList.add('content');
-
-    const contentLogs = document.createElement('div');
-    contentLogs.classList.add('contentLogs');
+    
     
 
 
-    if (playerSelection == computerSelection){
+    if (playerSelection == computerSelection){  //condicion empate
 
         userScore += 1 ; computerScore += 1 ;
         
@@ -43,7 +60,7 @@
         
         content.textContent = ("User score = " + userScore + " --- Computer score = " + computerScore)
 
-    } else if (((playerSelection=="rock") && (computerSelection=="paper") )      ||
+    } else if (((playerSelection=="rock") && (computerSelection=="paper") )      ||  //condicion perdededora
               (((playerSelection=="paper") && (computerSelection=="scissors")))  || 
               (((playerSelection=="scissors") && (computerSelection=="rock")))){
 
@@ -55,9 +72,7 @@
         
         content.textContent = ("User score = " + userScore + " --- Computer score = " + computerScore)
 
-    }
-
-     else {
+    }else {  //condicion ganadora
         
         userScore += 1 ; computerScore += 0 ;
         
@@ -68,28 +83,22 @@
     }
 
     
-    //logs.removeChild(contentLogs);
-    logs.appendChild(contentLogs);
+  
+    document.getElementById("logs").innerHTML = contentLogs.textContent;
 
-    
-    eventsList.removeChild(content);
-    eventsList.appendChild(content);   
+   
+    document.getElementById("eventsList").innerHTML = content.textContent;
+
+
+
+    // ingresar funcion de ganador
+    WinnerOfGame(userScore, computerScore)
   }
 
    
 
 
- if (userScore == computerScore) {
-     console.log ("The result of the game was a draw.")
- }
- else if (userScore > computerScore){
-     console.log ("User wins !")
- }
-
-
- else {
-     console.log ("Computer wins !")
- }
+ 
 
  
  
@@ -101,6 +110,7 @@
    // and for each one we add a 'click' listener
    button.addEventListener('click', () => {
        if (button.id == 1) {
+        
         return playRound("rock");
        } else if (button.id == 2) {
            return playRound("paper")
@@ -111,7 +121,23 @@
    });
  });
 
+ function disableButtons() {
+    buttons.forEach(elem => {
+        elem.disabled = true
+    })
+}
+
  const eventsList = document.querySelector("#eventsList");
- const logs = document.querySelector("#logs");
+ const logs = document.querySelector("#logs")
 
  
+
+ 
+ const content = document.createElement('li');
+ content.classList.add('content');
+
+ const contentLogs = document.createElement('div');
+ contentLogs.classList.add('contentLogs');
+
+ const winnerofgame = document.createElement('winnerofgame');
+ winnerofgame.classList.add('div');
