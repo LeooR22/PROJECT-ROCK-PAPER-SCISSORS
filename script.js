@@ -2,16 +2,11 @@
 
 
 
-
-
-
-let game = function(){
-
     let userScore = 0
     let computerScore = 0
 
 
-  let playRound = function(){
+  let playRound = function(playerSelection){
 
     
 
@@ -28,17 +23,25 @@ let game = function(){
     }
     computerplay();
 
-    const playerSelection= prompt("Choose rock, paper or scissors").toLowerCase()
+    
     const computerSelection = computerplay();
+
+
+    const content = document.createElement('li');
+    content.classList.add('content');
+
+    const contentLogs = document.createElement('div');
+    contentLogs.classList.add('contentLogs');
+    
 
 
     if (playerSelection == computerSelection){
 
         userScore += 1 ; computerScore += 1 ;
         
-        console.log ("Tie. " + playerSelection + " equals " + computerSelection)
+        contentLogs.textContent = ("Tie. " + playerSelection + " equals " + computerSelection)
         
-        console.log ("User score = " + userScore + " --- Computer score = " + computerScore)
+        content.textContent = ("User score = " + userScore + " --- Computer score = " + computerScore)
 
     } else if (((playerSelection=="rock") && (computerSelection=="paper") )      ||
               (((playerSelection=="paper") && (computerSelection=="scissors")))  || 
@@ -47,10 +50,10 @@ let game = function(){
 
         userScore += 0 ; computerScore += 1 ;
         
-        console.log ("You lose! " + computerSelection + " beats " + playerSelection)
+        contentLogs.textContent = ("You lose! " + computerSelection + " beats " + playerSelection)
         
         
-        console.log ("User score = " + userScore + " --- Computer score = " + computerScore)
+        content.textContent = ("User score = " + userScore + " --- Computer score = " + computerScore)
 
     }
 
@@ -58,17 +61,23 @@ let game = function(){
         
         userScore += 1 ; computerScore += 0 ;
         
-        console.log ("You win! " +  playerSelection + " beats " + computerSelection)
+        contentLogs.textContent = ("You win! " +  playerSelection + " beats " + computerSelection)
         
-        console.log ("User score = " + userScore + " --- Computer score = " + computerScore)
+        content.textContent = ("User score = " + userScore + " --- Computer score = " + computerScore)
 
     }
+
+    
+    //logs.removeChild(contentLogs);
+    logs.appendChild(contentLogs);
+
+    
+    eventsList.removeChild(content);
+    eventsList.appendChild(content);   
   }
- playRound();
- playRound();
- playRound();
- playRound();
- playRound();
+
+   
+
 
  if (userScore == computerScore) {
      console.log ("The result of the game was a draw.")
@@ -83,4 +92,26 @@ let game = function(){
  }
 
  
-}
+ 
+ const buttons = document.querySelectorAll('button');
+
+ // we use the .forEach method to iterate through each button
+ buttons.forEach((button) => {
+ 
+   // and for each one we add a 'click' listener
+   button.addEventListener('click', () => {
+       if (button.id == 1) {
+        return playRound("rock");
+       } else if (button.id == 2) {
+           return playRound("paper")
+       } else if (button.id == 3){
+        return playRound("scissors")
+       }
+    
+   });
+ });
+
+ const eventsList = document.querySelector("#eventsList");
+ const logs = document.querySelector("#logs");
+
+ 
